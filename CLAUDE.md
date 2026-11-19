@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Prime Code S.A.C.** es una empresa de desarrollo de Tarapoto (San Martín, Perú). Se posiciona como el equipo que hace **sistemas a medida con orden y profesionalidad**: primero entiende cómo trabaja el negocio del cliente y después construye el sistema que lo ordena, con procesos definidos de principio a fin y acompañamiento después de la entrega.
 
 Líneas de servicio (son las 6 filas de la sección Servicios):
+
 1. Sistemas a medida
 2. Páginas web
 3. Entradas para eventos: venta, acreditación y control en puerta con la marca del organizador, y validación que funciona sin señal. Es **un producto más**, no el titular de la empresa.
@@ -19,18 +20,22 @@ Líneas de servicio (son las 6 filas de la sección Servicios):
 Clientes reales que se muestran: **Alcanfest** (festival de arte y cultura), **Conaea San Martín 2026** (congreso nacional) y **Clave**.
 
 ### Objetivo de la landing
+
 - **Conseguir contactos y cotizaciones** de negocios de la región. Toda la página empuja a la acción principal, **Cotizar**, que lleva a `#contacto`. La vía secundaria es WhatsApp o el correo.
 - Transmitir **orden, profesionalidad y cercanía**: que un negocio sienta que Prime Code lo va a ordenar, no solo hacerle "un programa".
 - Dar confianza con pruebas reales: logos de clientes, testimonios y el equipo en Tarapoto.
 
 ### A quién le habla
+
 Dueños, administradores y organizadores de eventos del nororiente peruano. **La mayoría no son técnicos.**
+
 - Usar "sistema" o "web" en lugar de "software" o "plataforma"; sin jerga (nada de "stack", "SaaS", "cloud").
 - Tono profesional, cercano y directo, tuteando ("tu negocio", "te ayudamos").
 - Evitar repetir las mismas palabras entre secciones ("a medida", "soluciones", "profesional"). Los textos del diseño ya están revisados para no redundar: **copiarlos tal cual**.
 
 ### Prioridades técnicas
-- **Rendimiento en móvil y con conexiones lentas**: el público navega mucho desde el celular. HTML estático por defecto e imágenes optimizadas con `astro:assets` (`<Image>`, formatos modernos, `loading="lazy"` salvo en el Hero).
+
+- **Rendimiento en móvil y con conexiones lentas**: el público navega mucho desde el celular. HTML estático por defecto e imágenes optimizadas con `astro:assets` (`<Image>`, formato moderno, `loading="lazy"` salvo en el Hero).
 - **JavaScript mínimo**: solo como islas, para lo que de verdad lo necesita (el símbolo ASCII y, más adelante, el carrusel de testimonios), hidratadas con `client:visible`.
 - **SEO local**: títulos y descripciones en español, un solo `<h1>` (en el Hero), jerarquía correcta de encabezados y textos alternativos útiles.
 - **Accesibilidad**: contraste según la paleta (celeste nunca como texto sobre crema), elementos decorativos con `aria-hidden`, botones y enlaces con nombre accesible y animaciones que respetan `prefers-reduced-motion`.
