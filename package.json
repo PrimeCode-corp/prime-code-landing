@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:qa": "astro build && node scripts/qa-noindex.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -18,5 +19,12 @@
     "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.4.13",
     "tailwindcss": "^4.3.5"
+  },
+  "devDependencies": {
+    "wrangler": "^4.165.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261118.1": true
   }
 }
