@@ -1,1 +1,115 @@
 @import "tailwindcss";
+
+/* ── Fuentes (@fontsource, solo pesos usados) ─────────────────── */
+@import "@fontsource/chakra-petch/500.css";
+@import "@fontsource/chakra-petch/600.css";
+@import "@fontsource/ibm-plex-sans/300.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+
+/* ── Sistema de diseño Prime Code ────────────────────────────── */
+@theme {
+  /* 1. Colores — paleta R6 */
+  --color-cacao: #241a1c;
+  --color-cacao-900: #1c1214;
+  --color-cacao-950: #160e10;
+  --color-vino: #7b1e2e;
+  --color-vino-700: #4e1621;
+  --color-vino-500: #a0283c;
+  --color-vino-claro: #d0485e;
+  --color-rojo-ascii: #ea2b47;
+  --color-celeste: #86c1ff;
+  --color-crema: #f2e8da;
+  --color-borde: #e3d6c6;
+  --color-texto-2: #5e4f52;
+
+  /* 2. Tipografía */
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* 3. Escala de texto fluida (ref. 1440px) */
+  --text-display-xl: max(40px, 5.56vw);
+  --text-display-xl--line-height: 1;
+  --text-display-lg: max(36px, 4.17vw);
+  --text-display-lg--line-height: 1.05;
+  --text-display-md: max(22px, 2.31vw);
+  --text-display-md--line-height: 1.1;
+  --text-title: max(17px, 1.39vw);
+  --text-title--line-height: 1.05;
+  --text-body-lg: max(15px, 1.27vw);
+  --text-body-lg--line-height: 1.4;
+  --text-body: max(14px, 1.16vw);
+  --text-body--line-height: 1.45;
+  --text-body-sm: max(13px, 0.93vw);
+  --text-body-sm--line-height: 1.5;
+  --text-caption: max(10px, 0.8vw);
+  --text-caption--line-height: 1;
+  --text-caption--letter-spacing: 0.2em;
+
+  /* 4. Esquinas — se eliminan los radios por defecto; máximo 8px */
+  --radius-*: initial;
+  --radius-sm: 2px;
+  --radius: 4px; /* clase `rounded` */
+  --radius-lg: 8px;
+
+  /* 5. Medidas y espaciado */
+  --spacing-gutter: 3.47vw; /* px-gutter → 50px a 1440px */
+  --spacing-cards: 2.31vw; /* gap-cards */
+  --spacing-section-h: 64.7vw; /* min-h-section-h → 932px a 1440px */
+  --spacing-section-h-2: calc(64.7vw * 2); /* min-h-section-h-2 → 1864px (Servicios) */
+  --spacing-footer-h: 41.7vw; /* min-h-footer-h → 600px a 1440px */
+  --spacing-header-h: max(72px, 6vw); /* h-header-h → ~86px a 1440px */
+  --container-ref: 1440px; /* max-w-ref: ancho de referencia */
+
+  /* 6. Extras */
+  --shadow-offset: 4px 4px 0 var(--color-vino-claro);
+  --shadow-offset-hover: 6px 6px 0 var(--color-vino-claro);
+
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --animate-fade-in: fade-in 0.7s var(--ease-brand) both;
+  --animate-rise: rise 0.7s var(--ease-brand) both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(2vw);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Retraso de animación: animate-delay-200 → 0.2s */
+@utility animate-delay-* {
+  animation-delay: calc(--value(integer) * 1ms);
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

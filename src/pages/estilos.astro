@@ -1,0 +1,192 @@
+---
+import '../styles/global.css';
+
+const colores = [
+  { nombre: 'cacao', hex: '#241A1C', clase: 'bg-cacao' },
+  { nombre: 'cacao-900', hex: '#1C1214', clase: 'bg-cacao-900' },
+  { nombre: 'cacao-950', hex: '#160E10', clase: 'bg-cacao-950' },
+  { nombre: 'vino', hex: '#7B1E2E', clase: 'bg-vino' },
+  { nombre: 'vino-700', hex: '#4E1621', clase: 'bg-vino-700' },
+  { nombre: 'vino-500', hex: '#A0283C', clase: 'bg-vino-500' },
+  { nombre: 'vino-claro', hex: '#D0485E', clase: 'bg-vino-claro' },
+  { nombre: 'rojo-ascii', hex: '#EA2B47', clase: 'bg-rojo-ascii' },
+  { nombre: 'celeste', hex: '#86C1FF', clase: 'bg-celeste' },
+  { nombre: 'crema', hex: '#F2E8DA', clase: 'bg-crema' },
+  { nombre: 'borde', hex: '#E3D6C6', clase: 'bg-borde' },
+  { nombre: 'texto-2', hex: '#5E4F52', clase: 'bg-texto-2' },
+];
+
+const escala = [
+  { nombre: 'display-xl', clase: 'font-display text-display-xl font-semibold uppercase', texto: 'Código que impulsa' },
+  { nombre: 'display-lg', clase: 'font-display text-display-lg font-semibold uppercase', texto: 'Soluciones a medida' },
+  { nombre: 'display-md', clase: 'font-display text-display-md font-medium', texto: 'Desarrollo de software' },
+  { nombre: 'title', clase: 'font-display text-title font-medium', texto: 'Integraciones y APIs' },
+  { nombre: 'body-lg', clase: 'text-body-lg font-light', texto: '«Prime Code entendió nuestro negocio desde el primer día.»' },
+  { nombre: 'body', clase: 'text-body font-light', texto: 'Diseñamos y construimos productos digitales con foco en rendimiento.' },
+  { nombre: 'body-sm', clase: 'text-body-sm', texto: 'Descripción breve de un servicio o etiqueta legal.' },
+  { nombre: 'caption', clase: 'font-mono text-caption uppercase', texto: '01 — Microtexto técnico' },
+];
+
+const radios = [
+  { nombre: 'rounded-sm', valor: '2px', clase: 'rounded-sm' },
+  { nombre: 'rounded', valor: '4px', clase: 'rounded' },
+  { nombre: 'rounded-lg', valor: '8px (máx.)', clase: 'rounded-lg' },
+];
+
+const tarjetas = [
+  { num: '01', titulo: 'Estrategia', delay: 'animate-delay-200' },
+  { num: '02', titulo: 'Diseño', delay: 'animate-delay-300' },
+  { num: '03', titulo: 'Desarrollo', delay: 'animate-delay-400' },
+];
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>Estilos — Prime Code</title>
+  </head>
+  <body class="bg-crema text-cacao">
+    <main class="mx-auto flex max-w-ref flex-col gap-16 px-gutter py-16">
+      <header class="flex flex-col gap-3">
+        <span class="font-mono text-caption uppercase text-texto-2">Sistema de diseño · R6</span>
+        <h1 class="font-display text-display-lg font-semibold uppercase">
+          Guía de <span class="text-vino">estilos</span>
+        </h1>
+      </header>
+
+      <!-- 1. Colores -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-mono text-caption uppercase text-texto-2">01 · Colores</h2>
+        <div class="grid grid-cols-2 gap-cards sm:grid-cols-3 lg:grid-cols-6">
+          {
+            colores.map((c) => (
+              <div class="flex flex-col gap-2">
+                <div class:list={['aspect-square rounded border border-borde', c.clase]} />
+                <span class="text-body-sm font-semibold">{c.nombre}</span>
+                <span class="font-mono text-caption text-texto-2">{c.hex}</span>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 2 y 3. Tipografía -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-mono text-caption uppercase text-texto-2">02 · Tipografía</h2>
+        <div class="grid gap-cards md:grid-cols-3">
+          <div class="flex flex-col gap-2 rounded-lg border border-borde p-6">
+            <span class="font-mono text-caption uppercase text-texto-2">font-display · 500 / 600</span>
+            <p class="font-display text-display-md font-medium">Chakra Petch 500</p>
+            <p class="font-display text-display-md font-semibold">CHAKRA PETCH 600</p>
+          </div>
+          <div class="flex flex-col gap-2 rounded-lg border border-borde p-6">
+            <span class="font-mono text-caption uppercase text-texto-2">font-sans · 300 / 400 / 600</span>
+            <p class="text-body-lg font-light">IBM Plex Sans Light</p>
+            <p class="text-body-lg">IBM Plex Sans Regular</p>
+            <p class="text-body-lg font-semibold">IBM Plex Sans SemiBold</p>
+          </div>
+          <div class="flex flex-col gap-2 rounded-lg border border-borde p-6">
+            <span class="font-mono text-caption uppercase text-texto-2">font-mono · 400</span>
+            <p class="font-mono text-body-lg">IBM Plex Mono</p>
+            <p class="font-mono text-body-lg">01 02 03 // {'{ }'}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col divide-y divide-borde border-y border-borde">
+          {
+            escala.map((t) => (
+              <div class="flex flex-col gap-2 py-5 md:flex-row md:items-baseline md:gap-8">
+                <span class="w-32 shrink-0 font-mono text-caption uppercase text-texto-2">{t.nombre}</span>
+                <p class={t.clase}>{t.texto}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 4. Radios -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-mono text-caption uppercase text-texto-2">03 · Esquinas</h2>
+        <div class="flex flex-wrap gap-cards">
+          {
+            radios.map((r) => (
+              <div class="flex flex-col items-start gap-2">
+                <div class:list={['size-28 border border-cacao bg-borde', r.clase]} />
+                <span class="text-body-sm font-semibold">{r.nombre}</span>
+                <span class="font-mono text-caption text-texto-2">{r.valor}</span>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Botones -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-mono text-caption uppercase text-texto-2">04 · Botones</h2>
+        <div class="flex flex-wrap items-center gap-cards">
+          <a
+            href="#"
+            class="group inline-flex items-center gap-3 rounded bg-celeste px-6 py-3 font-display text-body-sm font-semibold uppercase tracking-wider text-cacao transition-colors duration-300 ease-brand hover:bg-crema hover:ring-1 hover:ring-cacao"
+          >
+            Hablemos
+            <span aria-hidden="true" class="transition-transform duration-300 ease-brand group-hover:translate-x-1">→</span>
+          </a>
+
+          <a
+            href="#"
+            class="inline-flex items-center gap-3 rounded border border-cacao bg-crema px-6 py-3 font-display text-body-sm font-semibold uppercase tracking-wider text-cacao shadow-offset transition-all duration-300 ease-brand hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-offset-hover"
+          >
+            Escríbenos
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bloque oscuro -->
+    <section class="bg-cacao-950 py-16 text-crema">
+      <div class="mx-auto flex max-w-ref flex-col gap-12 px-gutter">
+        <!-- Tarjeta oscura -->
+        <article class="flex max-w-2xl flex-col gap-5 rounded-lg bg-cacao-900 p-10">
+          <span class="font-mono text-caption uppercase text-celeste">// servicio 01</span>
+          <h3 class="font-display text-display-md font-semibold uppercase">
+            Software que <span class="text-vino-claro">escala</span> contigo
+          </h3>
+          <p class="text-body font-light text-crema/80">
+            Construimos plataformas robustas, mantenibles y pensadas para crecer junto a tu operación.
+          </p>
+          <span class="font-mono text-caption uppercase text-rojo-ascii">[ █▓▒░ prime ░▒▓█ ]</span>
+        </article>
+
+        <!-- Sección de ejemplo con animaciones -->
+        <div class="flex flex-col gap-8">
+          <h2 class="animate-fade-in font-display text-display-xl font-semibold uppercase">
+            Cómo <span class="text-vino-claro">trabajamos</span>
+          </h2>
+          <div class="grid gap-cards md:grid-cols-3">
+            {
+              tarjetas.map((t) => (
+                <div
+                  class:list={[
+                    'flex animate-rise flex-col gap-4 rounded-lg border border-vino-700 bg-linear-to-br from-vino-700 to-cacao-900 p-8',
+                    t.delay,
+                  ]}
+                >
+                  <span class="font-mono text-caption text-crema/60">{t.num}</span>
+                  <h3 class="font-display text-title font-semibold uppercase">{t.titulo}</h3>
+                  <p class="text-body-sm font-light text-crema/80">
+                    Texto de ejemplo para comprobar la escala tipográfica sobre fondo oscuro.
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+          <a href="#" class="w-fit text-body-sm text-crema underline underline-offset-4 transition-colors duration-300 ease-brand hover:text-celeste">
+            Enlace sobre oscuro (hover celeste)
+          </a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
