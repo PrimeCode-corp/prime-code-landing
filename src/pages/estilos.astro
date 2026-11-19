@@ -48,13 +48,41 @@ const tarjetas = [
     <title>Estilos — Prime Code</title>
   </head>
   <body class="bg-crema text-cacao">
-    <main class="mx-auto flex max-w-ref flex-col gap-16 px-gutter py-16">
+    <main class="section-frame flex flex-col gap-16 py-16">
       <header class="flex flex-col gap-3">
         <span class="font-mono text-caption uppercase text-texto-2">Sistema de diseño · R6</span>
         <h1 class="font-display text-display-lg font-semibold uppercase">
           Guía de <span class="text-vino">estilos</span>
         </h1>
       </header>
+
+      <!-- 0. Escala responsive en vivo -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-mono text-caption uppercase text-texto-2">00 · Escala responsive (en vivo)</h2>
+        <div class="grid grid-cols-2 gap-cards rounded-lg border border-borde p-6 md:grid-cols-4">
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-caption uppercase text-texto-2">Ventana</span>
+            <span data-live="viewport" class="font-display text-display-md font-semibold">—</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-caption uppercase text-texto-2">--u</span>
+            <span data-live="u" class="font-display text-display-md font-semibold">—</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-caption uppercase text-texto-2">--frame</span>
+            <span data-live="frame" class="font-display text-display-md font-semibold">—</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-caption uppercase text-texto-2">Margen lateral</span>
+            <span data-live="margin" class="font-display text-display-md font-semibold">—</span>
+          </div>
+        </div>
+        <!-- Sondas invisibles: su ancho computado resuelve --u y --frame -->
+        <div aria-hidden="true" class="pointer-events-none invisible absolute inset-x-0 h-0">
+          <div data-probe="u" class="h-0 w-(--u)"></div>
+          <div data-probe="frame" class="h-0 w-(--frame)"></div>
+        </div>
+      </section>
 
       <!-- 1. Colores -->
       <section class="flex flex-col gap-6">
@@ -145,8 +173,8 @@ const tarjetas = [
     </main>
 
     <!-- Bloque oscuro -->
-    <section class="bg-cacao-950 py-16 text-crema">
-      <div class="mx-auto flex max-w-ref flex-col gap-12 px-gutter">
+    <section class="section-frame bg-cacao-950 py-16 text-crema">
+      <div class="flex flex-col gap-12">
         <!-- Tarjeta oscura -->
         <article class="flex max-w-2xl flex-col gap-5 rounded-lg bg-cacao-900 p-10">
           <span class="font-mono text-caption uppercase text-celeste">// servicio 01</span>
@@ -188,5 +216,22 @@ const tarjetas = [
         </div>
       </div>
     </section>
+    <script>
+      const out = (k: string) => document.querySelector<HTMLElement>(`[data-live="${k}"]`)!;
+      const probe = (k: string) => document.querySelector<HTMLElement>(`[data-probe="${k}"]`)!;
+
+      function actualizar() {
+        const u = parseFloat(getComputedStyle(probe('u')).width);
+        const frame = parseFloat(getComputedStyle(probe('frame')).width);
+        const vw = document.documentElement.clientWidth;
+        out('viewport').textContent = `${vw} × ${window.innerHeight}`;
+        out('u').textContent = `${u.toFixed(2)}px`;
+        out('frame').textContent = `${frame.toFixed(0)}px`;
+        out('margin').textContent = `${((vw - frame) / 2).toFixed(0)}px`;
+      }
+
+      actualizar();
+      window.addEventListener('resize', actualizar);
+    </script>
   </body>
 </html>

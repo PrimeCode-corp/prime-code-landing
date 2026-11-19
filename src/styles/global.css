@@ -1,3 +1,29 @@
+/*
+ * ── Sistema de escala responsive (--u) ───────────────────────────────────
+ * Artboard de diseño: 1440 × 932 px. Los exportados vienen en vw (1vw = 14.4px).
+ * Aquí "vw" se reemplaza por --u, limitada por ancho, por alto y por un tope fijo.
+ *
+ *   --maxw  ancho máximo del contenido (para cambiarlo, editar solo esta variable)
+ *   --frame min(100%, --maxw): ancho del bloque centrado. Lleva %, así que solo
+ *           se resuelve donde se usa (padding/left de la sección). NUNCA usarlo dentro de --u.
+ *   --u     min(1vw, 1.545vh, --maxw / 100)   (1.545 = 1440 / 932)
+ *
+ * Conversión de medidas exportadas (valores arbitrarios de Tailwind):
+ *   Nvw            → calc(var(--u) * N)              ej. w-[calc(var(--u)*48.61)]
+ *   -Nvw           → calc(var(--u) * -N)             ej. mt-[calc(var(--u)*-2.3)]
+ *   max(Apx, Nvw)  → max(Apx, calc(var(--u) * N))    ej. text-[max(34px,calc(var(--u)*3.4))]
+ *   Las @keyframes pueden quedarse en vw (solo afectan a la entrada, no al layout).
+ *
+ * Elementos con posición absoluta (se ubican respecto a la sección a ancho completo,
+ * no al bloque centrado, así que hay que compensar el margen):
+ *   left: X%   → left: calc(50% + var(--frame) * (X/100 − 0.5))
+ *   left: Nvw  → left: calc((100% - var(--frame)) / 2 + var(--u) * N)
+ *   right: igual, simétrico.
+ * Ejemplo (retrato del Hero: left 21.2%, width 48.61%, centro en 45.5%):
+ *   left:  calc(50% - var(--frame) * 0.045 - var(--u) * 24.3);
+ *   width: calc(var(--u) * 48.61);
+ */
+
 @import "tailwindcss";
 
 /* ── Fuentes (@fontsource, solo pesos usados) ─────────────────── */
@@ -29,22 +55,22 @@
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* 3. Escala de texto fluida (ref. 1440px) */
-  --text-display-xl: max(40px, 5.56vw);
+  /* 3. Escala de texto (en --u, ref. 1440px) */
+  --text-display-xl: max(40px, calc(var(--u) * 5.56));
   --text-display-xl--line-height: 1;
-  --text-display-lg: max(36px, 4.17vw);
+  --text-display-lg: max(36px, calc(var(--u) * 4.17));
   --text-display-lg--line-height: 1.05;
-  --text-display-md: max(22px, 2.31vw);
+  --text-display-md: max(22px, calc(var(--u) * 2.31));
   --text-display-md--line-height: 1.1;
-  --text-title: max(17px, 1.39vw);
+  --text-title: max(17px, calc(var(--u) * 1.39));
   --text-title--line-height: 1.05;
-  --text-body-lg: max(15px, 1.27vw);
+  --text-body-lg: max(15px, calc(var(--u) * 1.27));
   --text-body-lg--line-height: 1.4;
-  --text-body: max(14px, 1.16vw);
+  --text-body: max(14px, calc(var(--u) * 1.16));
   --text-body--line-height: 1.45;
-  --text-body-sm: max(13px, 0.93vw);
+  --text-body-sm: max(13px, calc(var(--u) * 0.93));
   --text-body-sm--line-height: 1.5;
-  --text-caption: max(10px, 0.8vw);
+  --text-caption: max(10px, calc(var(--u) * 0.8));
   --text-caption--line-height: 1;
   --text-caption--letter-spacing: 0.2em;
 
@@ -54,14 +80,10 @@
   --radius: 4px; /* clase `rounded` */
   --radius-lg: 8px;
 
-  /* 5. Medidas y espaciado */
-  --spacing-gutter: 3.47vw; /* px-gutter → 50px a 1440px */
-  --spacing-cards: 2.31vw; /* gap-cards */
-  --spacing-section-h: 64.7vw; /* min-h-section-h → 932px a 1440px */
-  --spacing-section-h-2: calc(64.7vw * 2); /* min-h-section-h-2 → 1864px (Servicios) */
-  --spacing-footer-h: 41.7vw; /* min-h-footer-h → 600px a 1440px */
-  --spacing-header-h: max(72px, 6vw); /* h-header-h → ~86px a 1440px */
-  --container-ref: 1440px; /* max-w-ref: ancho de referencia */
+  /* 5. Medidas y espaciado (en --u) */
+  --spacing-gutter: calc(var(--u) * 3.47); /* 50px a 1440px */
+  --spacing-cards: calc(var(--u) * 2.31); /* gap-cards */
+  --spacing-header-h: max(72px, calc(var(--u) * 6)); /* h-header-h → ~86px a 1440px */
 
   /* 6. Extras */
   --shadow-offset: 4px 4px 0 var(--color-vino-claro);
@@ -93,12 +115,37 @@
   }
 }
 
+/* ── Utilidades ──────────────────────────────────────────────── */
+
 /* Retraso de animación: animate-delay-200 → 0.2s */
 @utility animate-delay-* {
   animation-delay: calc(--value(integer) * 1ms);
 }
 
+/* Fondo a todo lo ancho, contenido centrado con ancho máximo + gutter */
+@utility section-frame {
+  padding-left: calc((100% - var(--frame)) / 2 + var(--u) * 3.47);
+  padding-right: calc((100% - var(--frame)) / 2 + var(--u) * 3.47);
+}
+
+/* Alto mínimo de pantalla (px del diseño + 100vh, nunca --u) */
+@utility screen-section {
+  min-height: max(720px, 100vh);
+}
+@utility screen-section-sm {
+  min-height: max(560px, 100vh);
+}
+@utility screen-section-2 {
+  min-height: max(1440px, 200vh);
+}
+
 @layer base {
+  :root {
+    --maxw: 1440px;
+    --frame: min(100%, var(--maxw));
+    --u: min(1vw, 1.545vh, calc(var(--maxw) / 100));
+  }
+
   body {
     @apply font-sans;
   }
