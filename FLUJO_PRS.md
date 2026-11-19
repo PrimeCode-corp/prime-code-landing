@@ -316,7 +316,7 @@ que se va a desplegar.
 | Path | `/` |
 | API token | `Create new token` (Cloudflare lo crea con los permisos justos) |
 | API token name | Sin tocar |
-| Variable name / value | Vacíos. Si el build falla por la versión de Node, agregar `NODE_VERSION` = `22` |
+| Variable name / value | Vacíos. La versión de Node sale de `.node-version` (26.13.0) |
 | Build caching | Opcional. Activado acelera los builds |
 
 A tener en cuenta:
@@ -343,7 +343,7 @@ A tener en cuenta:
    `dist/` como sitio estático.
    - Si en cambio intenta ejecutar `npm start` y falla, agregar en `package.json`
      `"start": "astro preview --host 0.0.0.0 --port $PORT"` y volver a desplegar.
-4. Node: Railpack toma la versión de `engines.node` de `package.json` (>= 22).
+4. Node: Railpack toma la versión de `.node-version` (26.13.0), igual que Cloudflare.
 5. **Settings → Networking → Generate Domain** para la URL de Railway, o
    **Custom Domain** para el dominio final (y crear el CNAME que indica Railway).
 6. `wrangler.jsonc` y `scripts/qa-noindex.mjs` no afectan a Railway.
