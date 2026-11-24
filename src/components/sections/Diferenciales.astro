@@ -1,8 +1,148 @@
 ---
-// Diferenciales: título + botón y 5 tarjetas verticales.
+import FondoDiferencial from './diferenciales/FondoDiferencial.astro';
+import IconoDiferencial from './diferenciales/IconoDiferencial.astro';
+
+const cards = [
+  {
+    title: ['Tu marca', 'al frente'],
+    description: 'Construimos con tu identidad, no con la nuestra: tu público ve tu negocio, nunca una plataforma genérica.',
+    background: 'brand',
+    icon: 'chevrons',
+    delay: 'animate-delay-300',
+    iconDelay: 'animate-delay-1000',
+  },
+  {
+    title: ['Plazos', 'claros'],
+    description: 'Desde el inicio sabes qué vamos a entregar, cuándo y cuánto cuesta. Cronograma y alcance por escrito, sin sorpresas.',
+    background: 'calendar',
+    icon: 'calendar',
+    delay: 'animate-delay-380',
+    iconDelay: 'animate-delay-1080',
+  },
+  {
+    title: ['Procesos de', 'principio a fin'],
+    description: 'Entendemos cómo trabaja tu empresa antes de escribir una línea de código. Nada se improvisa.',
+    background: 'process',
+    icon: 'bars',
+    delay: 'animate-delay-460',
+    iconDelay: 'animate-delay-1160',
+  },
+  {
+    title: ['Cerca', 'de ti'],
+    description: 'Equipo en Tarapoto: reuniones en persona y soporte en tu mismo horario, sin intermediarios.',
+    background: 'local',
+    icon: 'pin',
+    delay: 'animate-delay-540',
+    iconDelay: 'animate-delay-1240',
+  },
+  {
+    title: ['Acompañamiento', 'real'],
+    description: 'No entregamos y desaparecemos: seguimos contigo con soporte, mejoras y respaldo cuando lo necesites.',
+    background: 'support',
+    icon: 'pulse',
+    delay: 'animate-delay-620',
+    iconDelay: 'animate-delay-1320',
+  },
+] as const;
 ---
 
-<section id="diferenciales" class="flex flex-col items-center justify-center gap-6 section-frame screen-section border-t border-borde bg-crema">
-  <h2 class="font-display text-display-xl font-semibold uppercase text-center text-cacao">SECCIÓN 5 · LO QUE NOS DIFERENCIA</h2>
-  <p class="font-mono text-caption uppercase text-texto-2">#diferenciales · 1440 × 932</p>
+<section
+  id="diferenciales"
+  aria-labelledby="diferenciales-title"
+  class="section-frame screen-section flex w-full flex-col gap-[calc(var(--u)*9.3)] bg-crema pt-[calc(var(--u)*12.7)] pb-[calc(var(--u)*10.4)] text-cacao"
+>
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h2 id="diferenciales-title" class="m-0 font-display text-display-lg font-semibold animate-differentials-fade animate-delay-100">
+      Lo que nos <span class="text-vino">diferencia</span>
+    </h2>
+    <a
+      href="#contacto"
+      class="group/project inline-flex h-[max(52px,calc(var(--u)*4.63))] items-center gap-[calc(var(--u)*1.27)] rounded bg-celeste pr-[calc(var(--u)*1.75)] pl-[calc(var(--u)*1.85)] text-[max(15px,calc(var(--u)*1.22))] font-semibold text-cacao animate-differentials-fade animate-delay-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vino"
+    >
+      Empezar un proyecto
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+        class="h-auto w-[max(18px,calc(var(--u)*1.39))] transition-transform duration-300 ease-[ease] motion-safe:group-hover/project:translate-x-1 motion-reduce:transition-none"
+      >
+        <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="flex flex-wrap gap-cards">
+    {cards.map((card) => (
+      <article class:list={[
+        'group/differential relative aspect-290/480 min-w-[200px] flex-[1_1_0] overflow-hidden rounded-lg bg-cacao text-crema animate-differentials-rise',
+        card.delay,
+      ]}>
+        <FondoDiferencial kind={card.background} />
+        <div class="relative flex h-full flex-col justify-between p-[calc(var(--u)*1.39)] pb-[calc(var(--u)*1.9)]">
+          <IconoDiferencial kind={card.icon} delay={card.iconDelay} />
+          <div>
+            <h3 class="m-0 font-display text-title font-semibold uppercase">
+              {card.title[0]}<br />{card.title[1]}
+            </h3>
+            <p class="mt-[calc(var(--u)*1.04)] text-body-sm font-light text-crema/88">{card.description}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
 </section>
+
+<script>
+  function initDifferentialsReveal() {
+    const section = document.querySelector<HTMLElement>('#diferenciales');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (
+      !section ||
+      section.dataset.differentialsReveal ||
+      reducedMotion.matches ||
+      !('IntersectionObserver' in window) ||
+      typeof section.getAnimations !== 'function' ||
+      typeof CSSAnimation === 'undefined'
+    ) return;
+
+    // Mantener los tiempos del exportado, contando desde la entrada en pantalla.
+    const animations = section.getAnimations({ subtree: true }).filter(
+      (animation): animation is CSSAnimation =>
+        animation instanceof CSSAnimation &&
+        ['saFade', 'saRise', 'saPulse', 'saRing'].includes(animation.animationName),
+    );
+    animations.forEach((animation) => {
+      animation.pause();
+      animation.currentTime = 0;
+    });
+    section.dataset.differentialsReveal = 'waiting';
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.35)) {
+        reveal();
+      }
+    }, { threshold: 0.35 });
+
+    function reveal() {
+      observer.disconnect();
+      animations.forEach((animation) => {
+        if (reducedMotion.matches) animation.cancel();
+        else animation.play();
+      });
+      section!.dataset.differentialsReveal = 'revealed';
+      reducedMotion.removeEventListener('change', onMotionChange);
+    }
+
+    function onMotionChange() {
+      if (reducedMotion.matches) reveal();
+    }
+
+    reducedMotion.addEventListener('change', onMotionChange);
+    observer.observe(section);
+  }
+
+  initDifferentialsReveal();
+</script>
