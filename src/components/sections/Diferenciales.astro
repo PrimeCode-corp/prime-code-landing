@@ -114,6 +114,9 @@ const cards = [
         animation instanceof CSSAnimation &&
         ['saFade', 'saRise', 'saPulse', 'saRing'].includes(animation.animationName),
     );
+
+    if (animations.length === 0) return;
+
     animations.forEach((animation) => {
       animation.pause();
       animation.currentTime = 0;
