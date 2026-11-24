@@ -34,6 +34,7 @@
 @import "@fontsource/ibm-plex-sans/600.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
 /* ── Sistema de diseño Prime Code ────────────────────────────── */
 @theme {
@@ -159,11 +160,6 @@
 
   --animate-clients-lines: pcLines 0.5s ease-out both;
   --animate-clients-pop: pcPop 0.5s var(--ease-brand) both;
-  --animate-differentials-fade: saFade 0.6s ease-out both;
-  --animate-differentials-icon: saFade 0.5s ease-out both;
-  --animate-differentials-rise: saRise 0.7s var(--ease-brand) both;
-  --animate-differentials-pulse: saPulse 2.4s cubic-bezier(0.6, 0, 0.2, 1) infinite;
-  --animate-differentials-ring: saRing 2.4s ease-out infinite;
 
   @keyframes pcLines {
     from {
@@ -183,34 +179,6 @@
       opacity: 1;
       transform: none;
     }
-  }
-
-  @keyframes saFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes saRise {
-    from {
-      opacity: 0;
-      transform: translateY(2.5vw);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes saPulse {
-    0% { stroke-dashoffset: 1; opacity: 1; }
-    55% { stroke-dashoffset: 0; opacity: 1; }
-    100% { stroke-dashoffset: 0; opacity: 0.25; }
-  }
-
-  @keyframes saRing {
-    0% { transform: scale(0.4); opacity: 0; }
-    30% { opacity: 1; }
-    100% { transform: scale(1.4); opacity: 0; }
   }
 
   @keyframes fade-in {
