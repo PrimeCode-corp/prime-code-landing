@@ -1,8 +1,167 @@
 ---
-// Clientes: cuadrícula de 4 × 3 con logos en gris y la última celda con frase + botón "Cotizar".
+import { Image } from 'astro:assets';
+import alcanfestGray from '../../assets/clientes/alcanfest-gris.png';
+import alcanfestColor from '../../assets/clientes/alcanfest-color.png';
+import claveGray from '../../assets/clientes/clave-gris.png';
+import claveColor from '../../assets/clientes/clave-color.png';
+import conaeaGray from '../../assets/clientes/conaea-gris.png';
+import conaeaColor from '../../assets/clientes/conaea-color.png';
+
+const logos = {
+  alcanfest: {
+    name: 'Alcanfest Perú',
+    gray: alcanfestGray,
+    color: alcanfestColor,
+    maxWidth: 'max-w-[46%]',
+    maxHeight: 'max-h-[calc(var(--u)*11)]',
+    aspectRatio: 'aspect-251/250',
+    sizes: '160px',
+  },
+  clave: {
+    name: 'Clave',
+    gray: claveGray,
+    color: claveColor,
+    maxWidth: 'max-w-[66%]',
+    maxHeight: 'max-h-[calc(var(--u)*8.5)]',
+    aspectRatio: 'aspect-800/381',
+    sizes: '240px',
+  },
+  conaea: {
+    name: 'Conaea San Martín 2026',
+    gray: conaeaGray,
+    color: conaeaColor,
+    maxWidth: 'max-w-[70%]',
+    maxHeight: 'max-h-[calc(var(--u)*7.5)]',
+    aspectRatio: 'aspect-100/31',
+    sizes: '252px',
+  },
+};
+
+// Sustituir las repeticiones por nuevos clientes conservando su tono y retraso.
+const cells = [
+  { ...logos.alcanfest, tone: 'opacity-100', delay: 'animate-delay-620' },
+  { ...logos.clave, tone: 'opacity-40', delay: 'animate-delay-740' },
+  { ...logos.conaea, tone: 'opacity-100', delay: 'animate-delay-680' },
+  { ...logos.alcanfest, tone: 'opacity-40', delay: 'animate-delay-800' },
+  { ...logos.conaea, tone: 'opacity-40', delay: 'animate-delay-700' },
+  { ...logos.alcanfest, tone: 'opacity-100', delay: 'animate-delay-860' },
+  { ...logos.clave, tone: 'opacity-40', delay: 'animate-delay-640' },
+  { ...logos.conaea, tone: 'opacity-100', delay: 'animate-delay-780' },
+  { ...logos.clave, tone: 'opacity-100', delay: 'animate-delay-720' },
+  { ...logos.conaea, tone: 'opacity-40', delay: 'animate-delay-840' },
+  { ...logos.alcanfest, tone: 'opacity-100', delay: 'animate-delay-660' },
+];
 ---
 
-<section id="clientes" class="flex flex-col items-center justify-center gap-6 section-frame screen-section-sm border-t border-borde bg-crema">
-  <h2 class="font-display text-display-xl font-semibold uppercase text-center text-cacao">SECCIÓN 2 · CLIENTES</h2>
-  <p class="font-mono text-caption uppercase text-texto-2">#clientes · 1440 × 932</p>
+<section
+  id="clientes"
+  aria-label="Clientes"
+  class="screen-section-sm flex w-full flex-col justify-center bg-crema px-[calc((100%-var(--frame))/2)] py-[calc(var(--u)*2.31)]"
+>
+  <div class="grid auto-rows-[max(160px,calc(var(--u)*20))] grid-cols-4 border-y border-borde animate-clients-lines animate-delay-100">
+    {cells.map((cell, index) => (
+      <div
+        class:list={[
+          'group flex min-h-40 items-center justify-center border-borde animate-clients-lines animate-delay-100',
+          { 'border-r': index % 4 !== 3, 'border-b': index < 8 },
+        ]}
+      >
+        <div class:list={['relative animate-clients-pop', cell.maxWidth, cell.delay]}>
+          <Image
+            src={cell.gray}
+            alt={cell.name}
+            widths={[160, 320, 640]}
+            sizes={cell.sizes}
+            format="webp"
+            quality={100}
+            loading="lazy"
+            class:list={[
+              'block h-auto w-auto max-w-full transition-opacity duration-350 ease-[ease] group-hover:opacity-0 motion-reduce:transition-none',
+              cell.maxHeight,
+              cell.aspectRatio,
+              cell.tone,
+            ]}
+          />
+          <Image
+            src={cell.color}
+            alt=""
+            aria-hidden="true"
+            widths={[160, 320, 640]}
+            sizes={cell.sizes}
+            format="webp"
+            quality={100}
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-350 ease-[ease] group-hover:opacity-100 motion-reduce:transition-none"
+          />
+        </div>
+      </div>
+    ))}
+
+    <div class="flex min-h-40 flex-col justify-center gap-[max(12px,calc(var(--u)*1.1))] px-[max(20px,calc(var(--u)*2.2))] animate-clients-lines animate-delay-100">
+      <p class="m-0 font-display text-[max(20px,calc(var(--u)*1.9))] leading-[1.12] font-semibold text-cacao animate-clients-pop animate-delay-900">
+        Ellos ya confían en nosotros. <span class="text-vino">Tu negocio puede ser el siguiente.</span>
+      </p>
+      <a
+        href="#contacto"
+        class="inline-flex items-center gap-[0.6em] self-start rounded bg-celeste px-[max(16px,calc(var(--u)*1.3))] py-[max(10px,calc(var(--u)*0.8))] text-[max(13px,calc(var(--u)*0.97))] leading-[normal] font-semibold text-cacao animate-clients-pop animate-delay-1000 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vino"
+      >
+        Cotizar <span aria-hidden="true" class="[font-family:sans-serif]">→</span>
+      </a>
+    </div>
+  </div>
 </section>
+
+<script>
+  function initClientsReveal() {
+    const section = document.querySelector<HTMLElement>('#clientes');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Sin JavaScript o sin estas APIs, la entrada CSS original queda disponible.
+    if (
+      !section ||
+      section.dataset.clientsReveal ||
+      reducedMotion.matches ||
+      !('IntersectionObserver' in window) ||
+      typeof section.getAnimations !== 'function' ||
+      typeof CSSAnimation === 'undefined'
+    ) return;
+
+    const animations = section.getAnimations({ subtree: true }).filter(
+      (animation): animation is CSSAnimation =>
+        animation instanceof CSSAnimation &&
+        (animation.animationName === 'pcLines' || animation.animationName === 'pcPop'),
+    );
+
+    // Reiniciar también si el módulo llegó después de la primera pintura.
+    animations.forEach((animation) => {
+      animation.pause();
+      animation.currentTime = 0;
+    });
+    section.dataset.clientsReveal = 'waiting';
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.35)) {
+        reveal();
+      }
+    }, { threshold: 0.35 });
+
+    function reveal() {
+      observer.disconnect();
+      animations.forEach((animation) => {
+        if (reducedMotion.matches) animation.cancel();
+        else animation.play();
+      });
+      section!.dataset.clientsReveal = 'revealed';
+      reducedMotion.removeEventListener('change', onMotionChange);
+    }
+
+    function onMotionChange() {
+      if (reducedMotion.matches) reveal();
+    }
+
+    reducedMotion.addEventListener('change', onMotionChange);
+    observer.observe(section);
+  }
+
+  initClientsReveal();
+</script>
