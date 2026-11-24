@@ -1,0 +1,101 @@
+---
+interface Props {
+  kind: 'brand' | 'calendar' | 'process' | 'local' | 'support';
+}
+
+const { kind } = Astro.props;
+const backgrounds = {
+  brand: 'bg-[linear-gradient(160deg,var(--color-vino-500)_0%,var(--color-vino)_45%,#3a1218_100%)]',
+  calendar: 'bg-[linear-gradient(180deg,#2a1a1d_0%,#1a1012_100%)]',
+  process: 'bg-[linear-gradient(180deg,var(--color-vino)_0%,var(--color-vino-700)_100%)]',
+  local: 'bg-[linear-gradient(180deg,var(--color-cacao)_0%,var(--color-cacao-950)_100%)]',
+  support: 'bg-[linear-gradient(160deg,var(--color-vino-claro)_0%,var(--color-vino-500)_40%,#5a1825_100%)]',
+};
+const bars = [
+  { width: 'w-[46%]', color: 'bg-vino-500' },
+  { width: 'w-[62%]', color: 'bg-[#b8344b]' },
+  { width: 'w-[78%]', color: 'bg-vino-claro' },
+  { width: 'w-[94%]', color: 'bg-crema' },
+];
+const squares = [
+  { geometry: '-left-[calc(var(--u)*2)] -top-[calc(var(--u)*2)] size-[calc(var(--u)*4)]', border: 'border-vino-claro/90' },
+  { geometry: '-left-[calc(var(--u)*4)] -top-[calc(var(--u)*4)] size-[calc(var(--u)*8)]', border: 'border-vino-claro/60' },
+  { geometry: '-left-[calc(var(--u)*6)] -top-[calc(var(--u)*6)] size-[calc(var(--u)*12)]', border: 'border-vino-claro/40' },
+  { geometry: '-left-[calc(var(--u)*8)] -top-[calc(var(--u)*8)] size-[calc(var(--u)*16)]', border: 'border-vino-claro/25' },
+  { geometry: '-left-[calc(var(--u)*10)] -top-[calc(var(--u)*10)] size-[calc(var(--u)*20)]', border: 'border-vino-claro/14' },
+];
+---
+
+<div
+  aria-hidden="true"
+  data-differential-background={kind}
+  class:list={[
+    'absolute inset-0 transition-transform duration-600 ease-brand motion-safe:group-hover/differential:scale-105 motion-reduce:transition-none',
+    backgrounds[kind],
+  ]}
+>
+  {kind === 'brand' && (
+    <svg viewBox="0 0 24 24" class="absolute top-[12%] -right-[18%] h-auto w-[95%] fill-crema opacity-16">
+      <path d="M0 5h3.5l5 7-5 7H0l5-7z" />
+      <path d="M10 0h5l8.5 12L15 24h-5l8.5-12z" />
+    </svg>
+  )}
+
+  {kind === 'calendar' && (
+    <div class="absolute inset-x-[12%] top-[14%] grid grid-cols-5 gap-[calc(var(--u)*0.45)]">
+      {Array.from({ length: 20 }, (_, index) => (
+        <span class:list={[
+          'block aspect-square rounded-sm',
+          index < 13
+            ? 'bg-vino-claro/45'
+            : index === 13
+              ? 'bg-celeste ring-4 ring-celeste/20 shadow-[0_0_14px] shadow-celeste/60'
+              : 'bg-crema/8',
+        ]}></span>
+      ))}
+    </div>
+  )}
+
+  {kind === 'process' && (
+    <div class="absolute inset-x-0 top-[14%] flex flex-col gap-[calc(var(--u)*0.5)] opacity-50">
+      {bars.map((bar) => (
+        <span class:list={[
+          'block h-[calc(var(--u)*1.6)] [clip-path:polygon(0_0,calc(100%-var(--u)*0.8)_0,100%_50%,calc(100%-var(--u)*0.8)_100%,0_100%)]',
+          bar.width,
+          bar.color,
+        ]}></span>
+      ))}
+    </div>
+  )}
+
+  {kind === 'local' && (
+    <div class="absolute top-[34%] left-1/2 size-0">
+      {squares.map((square) => (
+        <span class:list={['absolute box-border rounded border', square.geometry, square.border]}></span>
+      ))}
+      <span class="absolute -top-[calc(var(--u)*0.5)] -left-[calc(var(--u)*0.5)] size-[calc(var(--u)*1)] rounded-sm bg-rojo-ascii"></span>
+    </div>
+  )}
+
+  {kind === 'support' && (
+    <div>
+      <div class="absolute inset-0 bg-[repeating-linear-gradient(125deg,transparent_0_18px,color-mix(in_srgb,var(--color-crema)_9%,transparent)_18px_19px)]"></div>
+      <svg viewBox="0 0 200 120" preserveAspectRatio="none" class="absolute top-[22%] left-0 h-[26%] w-full overflow-visible">
+        <path
+          d="M0 70 H52 L64 70 L76 30 L92 104 L106 18 L120 82 L130 70 H200"
+          fill="none"
+          stroke-width="2.4"
+          stroke-linejoin="round"
+          vector-effect="non-scaling-stroke"
+          pathLength="1"
+          stroke-dasharray="1"
+          stroke-dashoffset="0"
+          class="stroke-crema animate-differentials-pulse animate-delay-1100"
+        />
+      </svg>
+      <span class="absolute top-[35%] left-1/2 -m-[calc(var(--u)*4.5)] box-content size-[calc(var(--u)*9)] rounded border border-crema/35 animate-differentials-ring animate-delay-1100"></span>
+    </div>
+  )}
+
+  <div class="absolute inset-x-0 bottom-0 h-[55%] bg-linear-to-b/srgb from-cacao-950/0 to-cacao-950/85"></div>
+</div>
