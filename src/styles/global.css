@@ -157,6 +157,29 @@
     }
   }
 
+  --animate-clients-lines: pcLines 0.5s ease-out both;
+  --animate-clients-pop: pcPop 0.5s var(--ease-brand) both;
+
+  @keyframes pcLines {
+    from {
+      border-color: transparent;
+    }
+    to {
+      border-color: var(--color-borde);
+    }
+  }
+
+  @keyframes pcPop {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   @keyframes fade-in {
     from {
       opacity: 0;

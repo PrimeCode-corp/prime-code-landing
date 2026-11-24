@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "build:qa": "astro build && node scripts/qa-noindex.mjs",
+    "build": "astro build && node scripts/check-animation-styles.mjs",
+    "build:qa": "npm run build && node scripts/qa-noindex.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
