@@ -70,6 +70,8 @@ const cells = [
           <Image
             src={cell.gray}
             alt={cell.name}
+            width={cell.gray.width}
+            height={cell.gray.height}
             widths={[160, 320, 640]}
             sizes={cell.sizes}
             format="webp"
@@ -86,12 +88,17 @@ const cells = [
             src={cell.color}
             alt=""
             aria-hidden="true"
+            width={cell.color.width}
+            height={cell.color.height}
             widths={[160, 320, 640]}
             sizes={cell.sizes}
             format="webp"
             quality={100}
             loading="lazy"
-            class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-350 ease-[ease] group-hover:opacity-100 motion-reduce:transition-none"
+            class:list={[
+              'absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-350 ease-[ease] group-hover:opacity-100 motion-reduce:transition-none',
+              cell.aspectRatio,
+            ]}
           />
         </div>
       </div>
@@ -131,6 +138,8 @@ const cells = [
         animation instanceof CSSAnimation &&
         (animation.animationName === 'pcLines' || animation.animationName === 'pcPop'),
     );
+
+    if (animations.length === 0) return;
 
     // Reiniciar también si el módulo llegó después de la primera pintura.
     animations.forEach((animation) => {
