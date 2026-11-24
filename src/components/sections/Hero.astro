@@ -1,8 +1,111 @@
 ---
-// Hero: titular "Prime Code", subtítulo, botón "Cotizar", retrato al centro, título "Sistemas hechos a medida", tarjetas "4+ años de experiencia" y "Orden", franja "Confían en nosotros".
+import { Image } from 'astro:assets';
+// Retrato provisional: reemplazar este archivo por una foto propia recortada sin fondo.
+import heroPortrait from '../../assets/hero-portrait.webp';
 ---
 
-<section id="inicio" class="relative flex flex-col items-center justify-center gap-6 section-frame screen-section bg-linear-to-b from-vino-700 to-cacao-950">
-  <h2 class="font-display text-display-xl font-semibold uppercase text-center text-crema">HERO</h2>
-  <p class="font-mono text-caption uppercase text-crema/60">#inicio · 1440 × 932</p>
+<section
+  id="inicio"
+  aria-labelledby="hero-title"
+  class="section-frame screen-section relative isolate flex flex-col overflow-hidden bg-[linear-gradient(90deg,var(--color-vino-700)_0%,#33181d_45%,#181012_100%)] pt-[calc(var(--u)*3.35+max(26px,calc(var(--u)*2.2)))] pb-[calc(var(--u)*3.4)] text-crema"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-[calc(var(--u)*6)] left-[calc((100%-var(--frame))/2-var(--u)*14)] z-0 size-[calc(var(--u)*54)] rounded-[50%] bg-vino opacity-55 blur-[130px]"
+  ></div>
+
+  <Image
+    src={heroPortrait}
+    alt="Retrato iluminado con luces de neón."
+    format="webp"
+    quality={100}
+    loading="eager"
+    fetchpriority="high"
+    class="pointer-events-none absolute bottom-0 left-[calc(50%-var(--frame)*0.045-var(--u)*24.3)] z-1 h-auto max-h-full w-[calc(var(--u)*48.61)] object-contain object-bottom animate-hero-portrait animate-delay-200"
+  />
+
+  <div class="flex flex-1 items-start justify-between gap-10 pt-[calc(var(--u)*9.1)]">
+    <div class="relative z-3 min-w-[280px] flex-[0_1_calc(var(--u)*25)] animate-hero-from-left animate-delay-900">
+      <h1
+        id="hero-title"
+        class="m-0 font-display text-[max(34px,calc(var(--u)*3.4))] leading-[0.95] font-semibold tracking-[0.01em] uppercase"
+      >
+        <span class="text-vino-claro">Prime</span> Code
+      </h1>
+      <p class="mt-[calc(var(--u)*1.75)] text-[max(14px,calc(var(--u)*0.93))] leading-normal font-light">
+        Un negocio profesional merece<br />
+        una web <strong class="font-semibold">a su altura</strong>.
+      </p>
+      <a
+        href="#contacto"
+        class="group mt-[calc(var(--u)*1.45)] inline-flex h-[max(52px,calc(var(--u)*4.63))] items-center gap-[calc(var(--u)*1.27)] rounded bg-celeste pr-[calc(var(--u)*1.75)] pl-[calc(var(--u)*1.85)] text-[max(15px,calc(var(--u)*1.16))] font-semibold text-cacao focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-celeste"
+      >
+        Cotizar
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          class="h-auto w-[max(18px,calc(var(--u)*1.39))] motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-[ease] motion-safe:group-hover:translate-x-1"
+        >
+          <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="relative z-3 flex min-w-[280px] flex-[0_1_calc(var(--u)*38)] flex-col items-end">
+      <p class="m-0 bg-linear-to-r/srgb from-vino-claro/25 from-0% via-vino-claro/75 via-16% to-crema to-35% bg-clip-text text-right font-display text-[max(36px,calc(var(--u)*6.6))] leading-[0.92] font-semibold text-transparent uppercase animate-hero-from-right animate-delay-900">
+        Sistemas<br />hechos<br />a medida
+      </p>
+      <p class="mt-[calc(var(--u)*2.4)] w-[max(240px,calc(var(--u)*15.7))] text-[max(14px,calc(var(--u)*0.93))] leading-normal font-light animate-hero-fade animate-delay-1200">
+        Entendemos cómo trabaja tu empresa y construimos el sistema que la ordena, con procesos definidos de principio a fin.
+      </p>
+    </div>
+  </div>
+
+  <!-- Posición respecto al frame y z-0 para que el retrato tape la tarjeta de vidrio. -->
+  <div class="absolute bottom-[calc(var(--u)*3.4)] left-[calc((100%-var(--frame))/2+var(--u)*5.07+max(145px,calc(var(--u)*12.3)))] z-0 flex aspect-241/254 w-[max(145px,calc(var(--u)*12.3))] flex-col justify-end rounded border border-crema/22 bg-crema/6 p-[max(14px,calc(var(--u)*1.22))] backdrop-blur-[24px] animate-hero-rise animate-delay-1450">
+    <div>
+      <p class="relative top-[calc(var(--u)*0.18)] m-0 font-display text-[max(27px,calc(var(--u)*2.73))] leading-[max(32px,calc(var(--u)*3.25))] font-semibold whitespace-nowrap uppercase">Orden</p>
+      <p class="mt-[calc(var(--u)*0.55)] text-[max(12px,calc(var(--u)*0.92))] leading-[1.3]">Marca personal</p>
+    </div>
+  </div>
+
+  <div class="mt-8 flex items-end justify-between gap-6">
+    <div class="relative z-3 flex aspect-241/254 w-[max(145px,calc(var(--u)*12.3))] shrink-0 flex-col justify-between rounded bg-crema p-[max(14px,calc(var(--u)*1.22))] text-cacao animate-hero-rise animate-delay-1350">
+      <svg
+        width="28"
+        height="24"
+        viewBox="0 0 28 24"
+        aria-hidden="true"
+        class="block h-auto w-[max(26px,calc(var(--u)*2.1))] fill-vino"
+      >
+        <path d="M0 5h3.5l5 7-5 7H0l5-7z" />
+        <path d="M10 0h5l8.5 12L15 24h-5l8.5-12z" />
+      </svg>
+      <div>
+        <p class="m-0 font-display text-[max(32px,calc(var(--u)*3.25))] leading-none font-semibold uppercase">4+</p>
+        <p class="mt-[calc(var(--u)*0.55)] text-[max(12px,calc(var(--u)*0.92))] leading-[1.3]">Años de experiencia</p>
+      </div>
+    </div>
+
+    <div class="relative z-3 flex h-[max(64px,calc(var(--u)*6.25))] items-center gap-[calc(var(--u)*1.16)] rounded border border-crema/28 bg-crema/4 pr-[calc(var(--u)*1.27)] pl-[calc(var(--u)*1.39)] backdrop-blur-[20px] animate-hero-rise animate-delay-1550">
+      <span class="text-[max(14px,calc(var(--u)*1.16))] whitespace-nowrap">Confían en nosotros</span>
+      <span class="flex items-center">
+        <span title="Conaea" class="relative z-1 flex size-[max(36px,calc(var(--u)*3.1))] items-center justify-start rounded bg-vino pl-[max(5px,calc(var(--u)*0.45))] font-mono text-[max(11px,calc(var(--u)*0.87))] font-medium shadow-[0_0_0_2px_#2c171b]">CN</span>
+        <span title="Alcanfest" class="relative z-2 -ml-[max(18px,calc(var(--u)*1.55))] flex size-[max(36px,calc(var(--u)*3.1))] items-center justify-start rounded bg-[#5a1522] pl-[max(5px,calc(var(--u)*0.45))] font-mono text-[max(11px,calc(var(--u)*0.87))] font-medium shadow-[0_0_0_2px_#2c171b]">AF</span>
+        <span title="Infierno Verde" class="relative z-3 -ml-[max(18px,calc(var(--u)*1.55))] flex size-[max(36px,calc(var(--u)*3.1))] items-center justify-start rounded bg-[#3a1a20] pl-[max(5px,calc(var(--u)*0.45))] font-mono text-[max(11px,calc(var(--u)*0.87))] font-medium shadow-[0_0_0_2px_#2c171b]">IV</span>
+        <a
+          href="#clientes"
+          aria-label="Ver clientes"
+          class="relative z-4 -ml-[max(18px,calc(var(--u)*1.55))] flex size-[max(44px,calc(var(--u)*3.47))] items-center justify-center rounded bg-celeste text-cacao shadow-[0_0_0_2px_#2c171b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-celeste"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" />
+          </svg>
+        </a>
+      </span>
+    </div>
+  </div>
 </section>
