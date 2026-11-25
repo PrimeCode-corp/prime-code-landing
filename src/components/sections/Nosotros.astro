@@ -1,8 +1,113 @@
 ---
-// Nosotros: párrafo, "Conoce más", tarjeta oscura con esquina recortada y tarjeta "Cómo trabajamos".
+// Sección 1 · Nosotros: párrafo, "Conoce más", tarjeta oscura con esquina recortada y tarjeta "Cómo trabajamos".
+// Solo escritorio: la versión móvil todavía no está diseñada.
+// TODO: el destino de "Conoce más" y del botón celeste está pendiente (href="#").
+
+const bars = [
+  { num: '01', label: 'Levantamiento', width: 'w-[46%]', tone: 'bg-vino-500 text-crema', delay: 'animate-delay-550' },
+  { num: '02', label: 'Diseño', width: 'w-[60%]', tone: 'bg-[#B8344B] text-crema', delay: 'animate-delay-650' },
+  { num: '03', label: 'Desarrollo', width: 'w-[74%]', tone: 'bg-vino-claro text-crema', delay: 'animate-delay-750' },
+  { num: '04', label: 'Soporte', width: 'w-[88%]', tone: 'bg-crema text-cacao', delay: 'animate-delay-850' },
+];
 ---
 
-<section id="nosotros" class="flex flex-col items-center justify-center gap-6 section-frame screen-section border-t border-borde bg-crema">
-  <h2 class="font-display text-display-xl font-semibold uppercase text-center text-cacao">SECCIÓN 1 · NOSOTROS</h2>
-  <p class="font-mono text-caption uppercase text-texto-2">#nosotros · 1440 × 932</p>
+<section
+  id="nosotros"
+  class="section-frame screen-section flex flex-col gap-[calc(var(--u)*6.9)] bg-crema py-[calc(var(--u)*13.8)] leading-[normal] text-cacao"
+>
+  <p class="m-0 max-w-[calc(var(--u)*69.2)] text-justify text-display-md leading-[1.08] font-normal tracking-[-0.01em] animate-nosotros-fade-up animate-delay-200">
+    En <span class="font-display font-semibold text-vino">Prime Code</span> creemos que un buen sistema no se nota: simplemente hace que todo funcione. Entendemos cómo opera tu negocio y lo convertimos en webs, plataformas y herramientas a medida que ordenan tu día a día.
+  </p>
+
+  <div class="flex flex-wrap items-end gap-[calc(var(--u)*2.31)]">
+    <a
+      href="#"
+      class="inline-flex flex-[1_1_240px] items-center gap-[calc(var(--u)*1.04)] self-end pb-[calc(var(--u)*0.4)] text-[max(14px,calc(var(--u)*1.27))] font-normal tracking-[0.04em] text-cacao uppercase no-underline animate-nosotros-fade animate-delay-300 hover:text-vino focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vino"
+    >
+      <svg
+        width="100"
+        height="8"
+        viewBox="0 0 100 8"
+        fill="none"
+        aria-hidden="true"
+        class="h-auto w-[max(56px,calc(var(--u)*5.8))] origin-left animate-nosotros-draw animate-delay-400"
+      >
+        <path d="M0 4h98M95 1.5l3 2.5-3 2.5" class="stroke-cacao" stroke-width="1" />
+      </svg>
+      Conoce más
+    </a>
+
+    <div class="relative flex aspect-511/363 min-w-[280px] flex-[0_1_calc(var(--u)*29.6)] items-end rounded bg-cacao p-[calc(var(--u)*1.8)] text-crema animate-nosotros-fade-up animate-delay-350">
+      <!-- Esquina recortada: su color (crema) debe coincidir con el fondo de la sección. -->
+      <span aria-hidden="true" class="absolute top-0 left-0 size-[max(60px,calc(var(--u)*4.3))] rounded-br bg-crema"></span>
+      <span
+        aria-hidden="true"
+        class="absolute top-0 left-[max(60px,calc(var(--u)*4.3))] size-1 bg-[radial-gradient(circle_4px_at_100%_100%,var(--color-cacao)_96%,var(--color-crema)_100%)]"
+      ></span>
+      <span
+        aria-hidden="true"
+        class="absolute top-[max(60px,calc(var(--u)*4.3))] left-0 size-1 bg-[radial-gradient(circle_4px_at_100%_100%,var(--color-cacao)_96%,var(--color-crema)_100%)]"
+      ></span>
+      <a
+        href="#"
+        aria-label="Conoce más sobre Prime Code"
+        class="group/go absolute top-0 left-0 flex size-[max(48px,calc(var(--u)*3.47))] items-center justify-center overflow-hidden rounded bg-celeste focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vino"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          class="absolute transition-[translate,opacity] duration-350 ease-brand group-hover/go:translate-x-[140%] group-hover/go:-translate-y-[140%] group-hover/go:opacity-0 group-focus-visible/go:translate-x-[140%] group-focus-visible/go:-translate-y-[140%] group-focus-visible/go:opacity-0"
+        >
+          <path d="M7 17L17 7M9 7h8v8" class="stroke-cacao" stroke-width="1.8" stroke-linecap="square" />
+        </svg>
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          class="absolute -translate-x-[140%] translate-y-[140%] opacity-0 transition-[translate,opacity] delay-100 duration-350 ease-brand group-hover/go:translate-0 group-hover/go:opacity-100 group-focus-visible/go:translate-0 group-focus-visible/go:opacity-100"
+        >
+          <path d="M7 17L17 7M9 7h8v8" class="stroke-cacao" stroke-width="1.8" stroke-linecap="square" />
+        </svg>
+      </a>
+      <p class="m-0 text-[max(14px,calc(var(--u)*1.27))] leading-[1.35] font-light">
+        No entregamos un programa y desaparecemos: te acompañamos desde el primer levantamiento de requerimientos hasta el soporte después del lanzamiento. De una web corporativa a una plataforma de entradas para miles de personas.
+      </p>
+    </div>
+
+    <div
+      role="img"
+      aria-label="Cómo trabajamos: levantamiento, diseño, desarrollo y soporte"
+      class="relative flex aspect-509/363 min-w-[280px] flex-[0_1_calc(var(--u)*29.5)] flex-col justify-between overflow-hidden rounded bg-vino p-[calc(var(--u)*1.8)] text-crema animate-nosotros-fade-up animate-delay-450"
+    >
+      <div class="flex items-start justify-between font-mono text-[max(10px,calc(var(--u)*0.72))] font-medium tracking-[0.16em] text-crema/70 uppercase">
+        <span>Cómo trabajamos</span>
+        <svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true" class="h-auto w-[max(22px,calc(var(--u)*1.7))] fill-crema">
+          <path d="M0 5h3.5l5 7-5 7H0l5-7z" />
+          <path d="M10 0h5l8.5 12L15 24h-5l8.5-12z" />
+        </svg>
+      </div>
+      <div class="flex flex-col gap-[max(6px,calc(var(--u)*0.5))]">
+        {
+          bars.map((bar) => (
+            <div
+              class:list={[
+                'flex h-[max(30px,calc(var(--u)*2.6))] origin-left items-center gap-[calc(var(--u)*0.8)] pr-[calc(var(--u)*2.2)] pl-[calc(var(--u)*1.1)] font-mono text-[max(10px,calc(var(--u)*0.78))] font-medium tracking-[0.1em] uppercase [clip-path:polygon(0_0,calc(100%_-_max(14px,calc(var(--u)*1.2)))_0,100%_50%,calc(100%_-_max(14px,calc(var(--u)*1.2)))_100%,0_100%)] animate-nosotros-bar',
+                bar.width,
+                bar.tone,
+                bar.delay,
+              ]}
+            >
+              <span class="opacity-70">{bar.num}</span>
+              {bar.label}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </section>
